@@ -2,7 +2,5 @@
   url: /about.html
 
 - title: Source
+# TODO: change to p3 github link later
   url: https://github.com/patdryburgh/hitchens
-
-- title: Designer
-  url: http://patdryburgh.com
