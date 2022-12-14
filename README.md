@@ -1,196 +1,86 @@
 ---
 layout: page
-title: "Hitchens"
+title: "README"
 ---
 
-An inarguably well-designed [Jekyll](http://jekyllrb.com) theme by [Pat Dryburgh](https://patdryburgh.com).
+## How has representation in film evolved over time?
 
-![Hitchens Preview](https://raw.githubusercontent.com/patdryburgh/hitchens/master/screenshot.png)
+### Abstract
 
-Undoubtably one of the great minds of our time, [Christopher Hitchens](https://en.wikipedia.org/wiki/Christopher_Hitchens) challenged his readers to think deeply on topics of politics, religion, war, and science. This Jekyll theme's design is inspired by the trade paperback version his book, [Arguably](https://en.wikipedia.org/wiki/Arguably), and is dedicated to his memory.
+As the world begins to become more aware of the oppression that minority groups face, representation in the film industry, both on and off screen, has become an increasingly pressing issue. We want to discover if the film industry has made substantial systemic changes to evolve along with society. Using the CMU Movie Summary Corpus dataset, Kaggle's Movie Datasets, and IMDB's Movie Datasets, we will compare the character metadata and crew data of older films to that of more recent films and see disparities in ethnicity and gender using a paired t-test. Further, we can analyze the movie summaries in the CMU datasets to compare how important minority characters to the storyline compared to their co-characters by applying coreference resolution to measure how often they are mentioned in the film plot. These analyses will determine if there have been significant changes in the film industry over time.
 
-## Quick Start
+### Research Questions
 
-This theme is, itself, a Jekyll blog, meaning the code base you see has everything you need to run a Jekyll powered blog!
+- Has there been improvement in diversity regarding ethnicity and gender in the main cast? Crew?
+- Are trends over time genre specific or general?
+- Do movies delegate important roles to minority actors?
+- Is there a correlation between movies that have a minority cast and the movie's budget? Box office performance?
 
-To get started quickly, follow the instructions below:
+### Proposed Additional Datasets
 
-1. Click the `Fork` button at the top of [the repository](https://github.com/patdryburgh/hitchens/);
-2. Go to your forked repo's `Settings` screen;
-3. Scroll down to the `GitHub Pages` section;
-4. Under `Source`, select the `Master` branch;
-5. Hit `Save`.
-6. Follow [Jekyll's instructions to configure your new Jekyll site](https://jekyllrb.com/docs/configuration/).
+1. [Kaggle Movies Dataset](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset?select=ratings.csv)
+This dataset has more information on budget and box office performance, which are valuable metrics to measure
+performance of a movie. The current CMU Movies dataset lacks data on revenue and budget for each movie. We can use movies_metadata.csv in the Kaggle datasets, and get the 'revenue' and 'budget' columns to analyze. By combining this with our current dataset we will reduce the proportion of missing data.
 
-## Manual Installation
+2. [IMDB Datasets](https://datasets.imdbws.com/)
+This dataset contains information on more recent titles. We will use this dataset to further supplement the lack of data on recent movies. In particular, we will use the name.basics and title.principals datasets to gather information on actors and actresses, and combine this with our dataset on actors' and actresses' ethnicities databse from the CMU corpus.
 
-If you've already created your Jekyll site or are comfortable with the command line, you can follow [Jekyll's Quickstart instructions](https://jekyllrb.com/docs/) add this line to your Jekyll site's `Gemfile`:
 
-```ruby
-gem "hitchens-theme"
-```
 
-And add the following lines to your Jekyll site's `_config.yml`:
+### Methods
 
-```yaml
-theme: hitchens-theme
-```
+#### Step 1. Data filtering and dataset construction
 
-Depending on your [site's configuration](https://jekyllrb.com/docs/configuration/options/), you may also need to add:
+- Replace freebase ID's with their associated field. For example, in characters_metadata.csv, there are columns with character's name, and actor, but the movie column is an ID so we have to replace these to properly interpret the data.
 
-```yaml
-ignore_theme_config: true
-```
+- Find importance of each character by number of mentions in the movie's summary by using Spacy's coreference resolution libraries.
 
-And then on the command line, execute:
+- Correctly map each Actor to a broader subgroup to see if they are a majority group or minority group, as well as a group in power with respect to ethnicity and gender. 
 
-    $ bundle
+- Merge external datasets by using actor and movie fields as shared columns
 
-Or install the theme yourself as:
+#### Step 2. Exploring the change in diversity over time
 
-    $ gem install hitchens-theme
+- Using each movies' release date, crew, and casting information, we will determine whether or not there was a significant change in the number of minority cast and crew members and identify potential trends. By leveraging both the IMDB dataset and the CMU cast metadata, we will construct groups of minorities based on ethnicity and gender. We will then count the number of minority cast and crew members involved with each film and see how this changes over time. We can further break this analysis down by genre to see if specific genres have been more progressive.
 
-## Usage
 
-### Home Layout
+#### Step 3. Exploring the type of representation within films
 
-The `home` layout presents a list of articles ordered chronologically. The theme uses [Jekyll's built-in pagination](https://jekyllrb.com/docs/pagination/#enable-pagination) which can be configured in your `_config.yml` file.
+- Frequency of characters name in plot summary as indicator of importance
+    - In order to determine whether or not minority cast members are playing significant roles in each film, we will perform an analysis of the plot summary to count the number of occurances of each character's name. We will use coreference resolution to attruibute pronouns to specific characters, and use the total number of occurances as a significance score for each character. Once we have each character's significance score for each movie, we will compare how significant the characters played by minority cast memebers are over all movies to look for changes and trends over time.
 
-The masthead of the home page is derived from the `title` and `description` set in your site's `_config.yml` file.
+#### Step 4. Exploring the economic impact of diversity
 
-#### Navigation
+- Correlation between box office performance, budget, and diversity of cast and crew
+    - In this step, we will examine whether or not there exists a correlation between the number of minority cast and crew members, and the revenue generated by the movie. We will repeat the process to examine whether or not a correlation exists between the number of minority cast and crew members and the budget to make the movie. We could also use a t-test to determine whether or not there is a significant difference in the box office performance of movies with more or less than a number X of minority cast and crew members.
 
-To include a navigation menu in your site's masthead and footer:
+#### Step 5. Use visualization techniques to deliver findings of Steps 2,3, and 4
 
-1. Create a `_data` directory in the root of your site.
-2. Add a `menu.yml` file to the `_data` directory.
-3. Use the following format to list your menu items:
+- Using data visualization techniques we can plot our findings to show: 
+    - How diversity has changed over time
+    - Proportion of representation
+    - Show average importance of characters in different groups progress overall and per genre
+    - Econmic impact of diverse cast and crew
 
-```
-- title: About
-  url: /about.html
+Step 6: Package everything for the final notebook and to be Github ready, create final datastory website and text
 
-- title: Source
-  url: https://github.com/patdryburgh/hitchens
-```
+### Proposed Timeline
 
-Be sure to start your `url`s with a `/`.
+- 18.11.2022 - P2 Milestone Due
+- 25.11.2022 - Week 1
+    Step 1
+- 02.12.2022 - Week 2
+    Step 2, 3
+- 09.12.2022 - Week 3
+    Step 4,5
+- 16.12.2022 - Week 4
+    Step 6
+- 23.12.2022 - P3 Milestone Due
 
-#### Pagination
+### Team Organization
 
-To paginate your posts, add the following line to your site's `Gemfile`:
+- Andy: Change in diversity over time (Step 2), Exploring minority representation (Step 3), prepare datastory website, contribute to final datastory text
+- Arvind: Character importance ranking changes overtime, freebase ID remapping, contribute to final datastory text
+- Olivia: Change in diversity over time (Step 2), Exploring minority representation (Step 3), Visualizations (Step 5), contribute to final datastory text
+- Owen: Change in diversity over time (Step 2), Exploring minority representation (Step 3), Economic Impact explorations (Step 5), contribute to final datastory text
 
-```
-gem "jekyll-paginate"
-```
-
-Then, add the following lines to your site's `_config.yml` file:
-
-```
-plugins:
-  - jekyll-paginate
-
-paginate: 20
-paginate_path: "/page/:num/"
-```
-
-You can set the `paginate` and `paginate_path` settings to whatever best suits you.
-
-#### Excerpts
-
-To show [excerpts](https://jekyllrb.com/docs/posts/#post-excerpts) of your blog posts on the home page, add the following settings to your site's `_config.yml` file:
-
-```
-show_excerpts: true
-```
-
-By default, excerpts that have more than 140 characters will be truncated to 20 words. In order to override the number of words you'd like to show for your excerpts, add the following setting to your site's `_config.yml` file:
-
-```
-excerpt_length: 20
-```
-
-To disable excerpt truncation entirely, simply set `excerpt_length` to `0` in your site's `_config.yml` file, like so:
-
-```
-excerpt_length: 0
-```
-
-If you do this, the theme will still respect Jekyll's `excerpt_separator` feature as [described in the Jekyll documentation](https://jekyllrb.com/docs/posts/#post-excerpts).
-
-
-#### Title-less Posts
-
-If you want to publish posts that don't have a title, add the following setting to the [front matter](https://jekyllrb.com/docs/frontmatter/) of the post:
-
-```
-title: ""
-```
-
-When you do this, the home page will display a truncated [excerpt](https://jekyllrb.com/docs/posts/#post-excerpts) of the first paragraph of your post.
-
-Note that setting `excerpt_length` in your site's `_config.yml` file will set the length of _all_ excerpts, regardless of whether the post has a title or not. For posts with a title, the excerpt will appear under the title and slightly lighter. For title-less posts, the excerpt will appear as if it were a title.
-
-### Post Layout
-
-A sparsely decorated layout designed to present long-form writing in a manner that's pleasing to read.
-
-To use the post layout, add the following to your post's [front matter](https://jekyllrb.com/docs/frontmatter/):
-
-```
-layout: post
-```
-
-### Icons
-
-The [JSON Feed spec](https://jsonfeed.org/version/1) states that feeds should include an icon. To add your icon, add the following line in your site's `_config.yml` file:
-
-```
-feed_icon: /assets/images/icon-512.png
-```
-
-Then, replace the `/assets/images/icon-512.png` file with your own image.
-
-### Credits
-
-The theme credits that appear at the bottom of each page can be turned off by including the following line in your site's `_config.yml` file:
-
-```
-hide_credits: true
-```
-
-### Search
-
-The theme uses a [custom DuckDuckGo Search Form](https://ddg.patdryburgh.com) that can be turned off by including the following line in your site's `_config.yml` file: 
-
-```
-hide_search: true
-```
-
-### Font
-
-I spent a good amount of time trying to identify the font used on the front cover of the trade paperback version of Arguably. Unfortunately, I failed to accurately identify the exact font used. If you happen to know what font is used on the book cover, I would appreciate you [letting me know](mailto:hello@patdryburgh.com) :)
-
-The theme includes a version of [EB Garamond](https://fonts.google.com/specimen/EB+Garamond), designed by Georg Duffner and Octavio Pardo. It's the closest alternative I could come up with that included an open license to include with the theme.
-
-A [copy of the license](https://github.com/patdryburgh/hitchens/blob/master/assets/fonts/OFL.txt) has been included in the `assets` folder and must be included with any distributions of this theme that include the EB Garamond font files.
-
-## Contributing & Requesting Features
-
-Bug reports, feature requests, and pull requests are welcome on GitHub at [https://github.com/patdryburgh/hitchens](https://github.com/patdryburgh/hitchens).
-
-This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## Development
-
-To set up your environment to develop this theme, run `bundle install`.
-
-The theme is setup just like a normal Jekyll site. To test the theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using the theme. Add pages, documents, data, etc. like normal to test the theme's contents. As you make modifications to the theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
-
-## License
-
-The code for this theme is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-The font, EB Garamond, is Copyright 2017 The EB Garamond Project Authors and licensed under the [SIL Open Font License Version 1.1](https://github.com/patdryburgh/hitchens/blob/master/assets/fonts/OFL.txt).
-
-Graphics are released to the public domain.
