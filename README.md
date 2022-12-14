@@ -1,9 +1,6 @@
----
-layout: page
-title: "README"
----
-
 ## How has representation in film evolved over time?
+
+Our data story website can be found at https://oliviashii.github.io/ada-website/
 
 ### Abstract
 
