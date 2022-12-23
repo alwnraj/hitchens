@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: ADA Data Story
+title: How has representation in film evolved over time?
 email: olivia.shi@epfl.ch
 description: >- # this means to ignore newlines until "baseurl:"
   Team North Americans Data Story website for ADA Fall 2022.
