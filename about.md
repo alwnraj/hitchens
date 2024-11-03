@@ -4,8 +4,8 @@ title: About
 id: 1
 ---
 
-Hello (-: My name is Alwin. Welcome to my blog
+## Hello (-: My name is Alwin. Welcome to my blog
 
 <img src="profile1.png" alt="drawing" width="500"/> 
-### Alwin
-Indian, has a cat (my sisters), frequents a taco shop so often the owners know his usual order
+
+### Alwin Rajkumar
