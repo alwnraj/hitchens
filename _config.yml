@@ -17,7 +17,7 @@ title: Alwin's Thoughts
 email: a0rajk01@louisville.edu
 description: >- # this means to ignore newlines until "baseurl:"
   This site is for a brain dump.
-baseurl: "/hitchens/" # the subpath of your site, e.g. /blog
+baseurl: "/hitchens" # the subpath of your site, e.g. /blog
 url: "https://alwnraj.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 icon: /assets/images/icon-512.png
 github_username:  alwnraj
